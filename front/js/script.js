@@ -1,5 +1,5 @@
 /**
- * API Products Data collect and display, switch to product page
+ * API Products Data collect and display
  */
 
 /** API Products Data collect */
