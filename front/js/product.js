@@ -43,11 +43,16 @@ const displayDetailsProduct = async () =>{
 
 displayDetailsProduct();
 
-/** Add to basket functions*/
+/**
+ *  Add to basket functions
+ * */
+
+/** save basket data to localStorage */
 function saveBasket(basket){
     localStorage.setItem("basket", JSON.stringify(basket));
 };
 
+/** prodcut data collection */
 function selectedProd(){
     detailsProduct();
     let productData = {    
@@ -62,6 +67,7 @@ function selectedProd(){
     return productData
 };
 
+/** localStorage content verification */
 function getBasket(){
     let basket = localStorage.getItem("basket");
     if (basket == null){
@@ -72,6 +78,7 @@ function getBasket(){
     }
 };
 
+/** main function to add product to basket localStorage */
 function addTobasket(){
     let basket = getBasket();
     basketProducts = selectedProd();
@@ -94,7 +101,10 @@ function addTobasket(){
     saveBasket(basket);
 };
 
+/** button add to cart function */
 document.getElementById("addToCart")
-    .addEventListener("click", () => {
+    .addEventListener("click", (event) => {
+        event.preventDefault();
+
         addTobasket()
 });
