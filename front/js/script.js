@@ -3,7 +3,7 @@
  */
 
 /** 
- * API Products Data collect 
+ * API Products Data collect ************************************
  * */
 function productDataCollect(){
     return (
@@ -17,7 +17,7 @@ function productDataCollect(){
 };
 
 /** 
- * API Products Data display 
+ * API Products Data display ************************************
  * */
 async function productsDisplay(){
     await productDataCollect();

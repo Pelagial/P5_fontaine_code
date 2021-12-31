@@ -1,34 +1,51 @@
 /**
- * Products Data collect and display for product page
+ * PRODUCTS DATA COLLECT AND DISPLAY ***********************************************************************************
  */
 
-/** Products Data collect */
-/** Current Page Id data collect */
-var urlcourante = document.location.href; 
-var url = new URL(urlcourante);
-var id = url.searchParams.get("id");
-console.log(id);
+/** 
+ * Products Data collect ************************************
+ * */
 
-/** Current Product data collect */
-const detailsProduct = async () => {
-    await fetch("http://localhost:3000/api/products/"+ id)
-    .then(details => details.json())
-    .then((promiseDetails) => {
-        productDetails = promiseDetails;
-    });  
+/** Current Page Id data collect */
+function currentPoductIdCollect(){
+    var urlcourante = document.location.href; 
+    var url = new URL(urlcourante);
+    var id = url.searchParams.get("id");
+    console.log(id);
+    return id;
 };
 
-/** Products data display */
-const displayDetailsProduct = async () =>{
-    await detailsProduct();
 
+
+/** Current Product data collect */
+async function currentProductDataCollect(){
+    let id = currentPoductIdCollect();
+    console.log(id);
+    return(
+        fetch("http://localhost:3000/api/products/"+ id)
+        .then(details => details.json())
+        .then((promiseDetails) => {
+            productDetails = promiseDetails;
+            console.log(productDetails);
+        })
+    );   
+};
+
+/** 
+ * Products data display ************************************
+ * */
+
+async function displayDetailsProduct(){
+    await currentProductDataCollect();
+
+/** Product data display part */
     document.querySelector(".item__img").innerHTML = 
     `<img src="${productDetails.imageUrl}" alt="${productDetails.altTxt}"/>`;
     document.getElementById("title").innerHTML = `${productDetails.name}`;
     document.getElementById("price").innerHTML = `${productDetails.price}`;
     document.getElementById("description").innerHTML = `${productDetails.description}`;
 
-    /** Colors select part */
+/** Colors select display part */
     let colorSelect = document.getElementById("colors");
 
     productDetails.colors.forEach((color) => {
@@ -37,14 +54,13 @@ const displayDetailsProduct = async () =>{
         colorValue.value = `${color}`;
 
         colorSelect.appendChild(colorValue);
-    });
-    
+    });  
 };
 
 displayDetailsProduct();
 
 /**
- *  Add to basket functions
+ *  Add to basket functions ************************************
  * */
 
 /** save basket data to localStorage */
@@ -54,7 +70,7 @@ function saveBasket(basket){
 
 /** prodcut data collection */
 function selectedProd(){
-    detailsProduct();
+    currentProductDataCollect();
     let productData = {    
         id : productDetails._id, 
         imageUrl: productDetails.imageUrl,
