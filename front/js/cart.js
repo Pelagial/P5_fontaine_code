@@ -1,15 +1,27 @@
-/** 
- * Basket data collect and display
- * */
+/**
+ * BASKET DATA COLLECT AND DISPLAY ***********************************************************************************
+ */
 
- /** Get basket from localStorage */
+/** 
+* Get basket from localStorage ************************************
+* */
+
 let basketData = JSON.parse(localStorage.getItem("basket"));
 console.log(basketData);
  
-/** Display cart */
-if (basketData == null){
+/** 
+ * Display basket data in cart ************************************
+ * */
 
-}else{
+/** If local storage is empty nothing happen */
+if (basketData == null){}
+
+/** Else display local storage data and add all basket functions */
+else{
+
+/** 
+ * Display part ************************************
+ * */ 
     function displayBasket(){
         const displayCart = document.querySelector("#cart__items");
         console.log(displayCart);
@@ -43,19 +55,17 @@ if (basketData == null){
         
         if(i === basketData.length);
         displayCart.innerHTML = displayCartContents;
-        };
-        displayBasket();
+    };
+    displayBasket();
 
 
 /** 
- * Basket functions
+ * Basket functions ************************************
  * */
 
-/** 
- * Delete a product of cart
- * */
+/*************************************** Delete a product of cart *************************************/
 
- function deletButton(){
+    function deletButton(){
 
     /** Select all the delet button */
             let deletBtn = Array.from(document.querySelectorAll(".deleteItem"));
@@ -87,10 +97,8 @@ if (basketData == null){
     deletButton();
     
     
-    /** 
-     * Change Quantity of product in cart
-     * */
-     function changeQuantityInCart(){
+    /*************************************** Change Quantity of product in cart **************************************/
+    function changeQuantityInCart(){
     
     /** Select all the quantity input */
         let quantityInCart = Array.from(document.querySelectorAll(".itemQuantity"));
@@ -132,14 +140,11 @@ if (basketData == null){
     changeQuantityInCart();
     
     
-    /** 
-     * Get total price in cart
-     * */
+    /*************************************** Get total price in cart **************************************/
     
     let totalPrice =[];
     let totalQuantity =[];
-    
-    /** Get total price of product in cart */
+
     /** Get price of product in cart and multiply for each quantity */
     for(let total = 0; total < basketData.length; total++){
         let productInCartPrice = basketData[total].price;
@@ -155,8 +160,6 @@ if (basketData == null){
     /** Calculate the total price */
     const price = (accumulator, currentValue) => accumulator + currentValue;
     const totalPriceCalcul = totalPrice.reduce(price,0);
-    
-    console.log(totalPriceCalcul);
     
     /** Calculate the total number of products */
     const quantity = (accumulator, currentValue) => accumulator + currentValue;
@@ -179,17 +182,14 @@ if (basketData == null){
      };
     displayTotalQuantity();
       
-    
-    
-    /**
-     * Formular Fonction
-     */
-    
-    
+
     /** 
-     * Collect & verification of formular Data */
+     * Formular functions ************************************
+     * */
     
-    /** Collect fromular data */
+    /*************************************** Collect & verification of formular Data **************************************/
+    
+    /** Collect fromular data *****/
     function formularInputs(){
         let formularData = {
             firstName: `${document.querySelector("#firstName").value}`,
@@ -201,7 +201,7 @@ if (basketData == null){
         return formularData;
     };
     
-    /** Verification fromular data */
+    /** Verification fromular data *****/
     
     /** First Name verification */
     function validationFirstName(){
@@ -277,10 +277,9 @@ if (basketData == null){
             return false;
         }
     };
-/** formular value collect */
- 
 
-/** Prodcut id in cart collect */
+/*************************************** Prodcut id in cart data collect **************************************/
+
     function productsId(){
         let productsInCartId = [];
         for(let id = 0; id < basketData.length; id++){
@@ -291,8 +290,9 @@ if (basketData == null){
     };
 
 
-/** 
-* Creat order data (product in cart and formular data) */
+
+/*************************************** Creat order data (product in cart and formular data) **************************************/
+
 function orderData(){
     const orderDataCreation = {    
         contact: formularInputs(),
@@ -301,9 +301,8 @@ function orderData(){
     return orderDataCreation;
 }    
 
-    
-/**
-* Button Submit function */
+/*************************************** Button Submit function **************************************/
+
     function orderButton(){
         const submitButton = document.querySelector("#order");
         submitButton.addEventListener("click", (orderConfirmation) =>{
@@ -311,7 +310,7 @@ function orderData(){
             orderConfirmation.stopPropagation();
             if (validationFirstName() && validationLastName() && validationAddress() && validationCity() && validationEmail()){
 
-/** Send data order to back */
+                /** Send data order to back */
                 let order = orderData();
                 
                 localStorage.setItem("order", JSON.stringify(order));
@@ -323,8 +322,9 @@ function orderData(){
                     },
                 });
 
-/** Collect the order Id from back response */
+                /** Collect the order Id from back response */
                 dataSendToApi.then(async(response)=>{
+                    
                     /** If promise return value with no problem */
                     try{
                         const orderResponse =await response.json()
@@ -333,12 +333,13 @@ function orderData(){
                         console.log(orderId);
                         if(response.ok){
 
-/** redirect to confirmation page with the order Id */
+                        /** redirect to confirmation page with the order Id */
                             window.location.href = `./confirmation.html?orderId=${orderId}`;
                         }
                         else{
                             alert("Il y a un problème merci de nous contacter par mail: " + `${response.status}`);
                         };
+
                     /** If ther is a problem with promise */
                     }catch(error){
                         alert("Il y a un problème merci de nous contacter par mail: " + error);
