@@ -80,6 +80,7 @@ function selectedProd(){
         colorSelected : document.getElementById("colors").value,
         quantitySelected : document.getElementById("quantity").value
     };
+    console.log(productData);
     return productData
 };
 
@@ -87,17 +88,21 @@ function selectedProd(){
 function getBasket(){
     let basket = localStorage.getItem("basket");
     if (basket == null){
+        console.log("localStorage is empty");
         return [];
     }
     else{
+        console.log("localStorage update");
         return JSON.parse(basket);
     }
 };
 
 /** main function to add product to basket localStorage */
-function addTobasket(){
+function addToBasket(){
     let basket = getBasket();
     basketProducts = selectedProd();
+
+/** Product quantity upadate if id and color is the same */
     let foundProduct = basket.find(i => i.id == basketProducts.id);
     console.log(foundProduct);
     let foundColor =  basket.find(c => c.colorSelected == basketProducts.colorSelected);
@@ -118,9 +123,13 @@ function addTobasket(){
 };
 
 /** button add to cart function */
-document.getElementById("addToCart")
+function buttonAddToBasket(){
+    document.getElementById("addToCart")
     .addEventListener("click", (event) => {
         event.preventDefault();
 
-        addTobasket()
-});
+        addToBasket()
+    });
+};
+buttonAddToBasket();
+

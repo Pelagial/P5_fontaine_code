@@ -1,16 +1,25 @@
 /**
- * ORDER CONFIRMATON PAGE
+ * ORDER CONFIRMATON PAGE ***********************************************************************************
  */
 
-/** Current Page Id data collect */
-var urlcourante = document.location.href; 
-var url = new URL(urlcourante);
-var orderId = url.searchParams.get("orderId");
-console.log(orderId);
+/** 
+ * Order Id data collect ************************************
+ * */
 
-
-function orderConfiramationDisplay(){
-    document.querySelector("#orderId").innerHTML = `${orderId}`;
+function currentOrderIdCollect(){
+    var urlcourante = document.location.href; 
+    var url = new URL(urlcourante);
+    var orderId = url.searchParams.get("orderId");
+    console.log(orderId);
+    return orderId;
 };
 
+/** 
+ * Order Id display ************************************
+ * */
+
+function orderConfiramationDisplay(){
+    id = currentOrderIdCollect();
+    document.querySelector("#orderId").innerHTML = `${id}`;
+};
 orderConfiramationDisplay();
