@@ -14,11 +14,13 @@ console.log(basketData);
  * */
 
 /** If local storage is empty nothing happen */
-if (basketData == null){}
+if (basketData == null){
+    console.log("the localStorage is empty");
+}
 
 /** Else display local storage data and add all basket functions */
 else{
-
+    console.log("the localStorage isn't empty");
 /** 
  * Display part ************************************
  * */ 
@@ -198,6 +200,7 @@ else{
             city: `${document.querySelector("#city").value}`,
             email: `${document.querySelector("#email").value}`
         };
+        console.log(formularData);
         return formularData;
     };
     
@@ -286,10 +289,9 @@ else{
             let productId = basketData[id].id;
             productsInCartId.push(productId);
         };
+        console.log(productsInCartId);
         return productsInCartId;
     };
-
-
 
 /*************************************** Creat order data (product in cart and formular data) **************************************/
 
@@ -298,6 +300,7 @@ function orderData(){
         contact: formularInputs(),
         products: productsId()
     };
+    console.log(orderDataCreation);
     return orderDataCreation;
 }    
 
@@ -324,7 +327,7 @@ function orderData(){
 
                 /** Collect the order Id from back response */
                 dataSendToApi.then(async(response)=>{
-                    
+
                     /** If promise return value with no problem */
                     try{
                         const orderResponse =await response.json()

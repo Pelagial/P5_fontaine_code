@@ -23,3 +23,4 @@ function orderConfiramationDisplay(){
     document.querySelector("#orderId").innerHTML = `${id}`;
 };
 orderConfiramationDisplay();
+
