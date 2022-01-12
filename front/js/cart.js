@@ -69,7 +69,7 @@ else{
 
     function deletButton(){
 
-    /** Select all the delet button */
+    /** Select all the delet button and creat an array */
             let deletBtn = Array.from(document.querySelectorAll(".deleteItem"));
             console.log(deletBtn);
         
